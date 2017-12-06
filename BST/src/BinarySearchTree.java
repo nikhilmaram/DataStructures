@@ -45,14 +45,19 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value> {
 		}
 		return null;
 	}
-	
+	/* floor gives the key which is atmost the input Key */
 	public Key floor(Key key)
 	{
 		Node x = floor(root,key);
 		if(x == null) return null;
 		return x.key;
 	}
-	
+	/* if the input key is less than the key at node
+	 * 		then traverse left of the node
+	 * if the input key is greater than key at node
+	 * 		then the key at node can be floor 
+	 * 		if all elements in the right tree is greater than input key 
+	 */
 	private Node floor(Node x, Key key)
 	{
 		Node r;
@@ -86,6 +91,12 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value> {
 		return rank(root,key);
 	}
 
+	/*
+	 * Number of nodes less than the input key.
+	 * 1. if key at current node is less than input key 
+	 * 		1 + all the elements in the left tree of the node 
+	 * 		+ elements in the right tree which are less than input key
+	 */
 	private int rank(Node x, Key key)
 	{
 		if (x == null) return 0;
@@ -138,6 +149,13 @@ public class BinarySearchTree<Key extends Comparable<Key>,Value> {
 		root = delete(root,key);
 	}
 	
+	/*
+	 *  Node to be deleted has either left child or right child
+	 *  	then replace current node with its either left child or right child
+	 *  if both childs are present
+	 *  	then delete the minimum element in the right subtree of the node
+	 *  	and add that element in place of current node.
+	 */
 	private Node delete(Node x,Key key)
 	{
 		if(x==null) return null;
